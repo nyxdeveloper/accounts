@@ -60,9 +60,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
 
-    class Meta:
-        unique_together = ["phone", "role"]
-
     def __str__(self):
         return self.name if self.name else str(self.phone)
 
