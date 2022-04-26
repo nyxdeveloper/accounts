@@ -12,8 +12,7 @@ class CustomUserCreationForm(UserCreationForm):
             "password",
             "is_staff",
             "is_superuser",
-            "is_active",
-            "role"
+            "is_active"
         )
 
 
@@ -27,6 +26,5 @@ class CustomUserChangeForm(UserChangeForm):
             "avatar",
             "is_staff",
             "is_superuser",
-            "is_active",
-            "role"
+            "is_active"
         )
