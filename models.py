@@ -10,6 +10,8 @@ from django.db import models
 from django.db import transaction
 
 
+# test
+
 class UserManager(BaseUserManager):
     @transaction.atomic
     def _create_user(self, username, password, **extra_fields):
