@@ -21,9 +21,7 @@ class AuthenticationViewSet(GenericViewSet):
     queryset = User.objects.filter(is_active=True)
     serializer_class = UserSerializer
 
-    @transaction.atomic
-    @action(methods=["POST"], detail=False)
-    def auth(self, request):
+    def phone_auth(self, request):
         phone = request.data.get("phone")
         otc = request.data.get("otc")
 
@@ -40,3 +38,11 @@ class AuthenticationViewSet(GenericViewSet):
                     return Response(get_auth_payload(User.objects.create(phone=phone), request))
             raise InvalidOTC
         return Response(send_otc(phone))
+
+    @transaction.atomic
+    @action(methods=["POST"], detail=False)
+    def auth(self, request):
+        auth_type = request.query_params.get("t")
+        if auth_type == "phone":
+            return self.phone_auth(request)
+        return Response({"detail": "Недоступный метод авторизации"}, status=400)
